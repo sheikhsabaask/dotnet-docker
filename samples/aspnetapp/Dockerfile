@@ -5,7 +5,7 @@ WORKDIR /source
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY aspnetapp/*.csproj ./aspnetapp/
-RUN dotnet restore
+RUN dotnet restore                        #restore dependencies and project-specific tools, specified in project file
 
 # copy everything else and build app
 COPY aspnetapp/. ./aspnetapp/
@@ -13,7 +13,7 @@ WORKDIR /source/aspnetapp
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1  
 WORKDIR /app
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+ENTRYPOINT ["dotnet", "aspnetapp.dll"]   # Container run as a executor
