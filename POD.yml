@@ -1,0 +1,14 @@
+apiversion:  vi
+kind:  pod
+metadata:
+  name:  webserver
+  label:
+    app:  nginx
+    type:  frontend
+spec: 
+  container:
+    - name: webserver-cont
+      image: nginx:latest
+    - name: deploy-cont
+      image:  centos
+      command:  ['sleep','1000']      
